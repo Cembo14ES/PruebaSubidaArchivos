@@ -17,7 +17,7 @@ public class Puntos : MonoBehaviour
         if (other.CompareTag("Gallina"))
         {
             puntos++;
-            textoUI.text= "Dentro de la zona: " + puntos;
+            textoUI.text= "Gallinas Atrapadas: " + puntos;
         }
     }
 
@@ -26,7 +26,7 @@ public class Puntos : MonoBehaviour
         if (other.CompareTag("Gallina"))
         {
             puntos--;
-            textoUI.text = "Dentro de la zona: " + puntos;
+            textoUI.text = "Gallinas Atrapadas: " + puntos;
         }
     }
 }

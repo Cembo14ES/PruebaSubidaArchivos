@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR;
 
 public class FollowOnClick : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class FollowOnClick : MonoBehaviour
     private Rigidbody noGravedad;
     private bool playerInside = false;
     private bool isFollowing = false;
+    private bool gatillo;
 
     void Start()
     {
@@ -20,8 +22,9 @@ public class FollowOnClick : MonoBehaviour
 
     void Update()
     {
+        gatillo = InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out bool t) && t;
         // Si el jugador está dentro y hace click izquierdo
-        if (playerInside && Input.GetMouseButtonDown(0))
+        if (playerInside && gatillo)
         {
             isFollowing = !isFollowing; // alternar seguir / dejar de seguir
             colision.isTrigger = isFollowing;

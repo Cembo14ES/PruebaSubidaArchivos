@@ -7,10 +7,14 @@ public class Puntos : MonoBehaviour
     public string targetTag = "Gallina";
     private int puntos = 0;
     public TextMeshProUGUI textoUI;
+    private void Update()
+    {
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Gallina")
+        Debug.Log(other.gameObject.name);
+        if (other.CompareTag("Gallina"))
         {
             puntos++;
             textoUI.text= "Dentro de la zona: " + puntos;
@@ -19,7 +23,7 @@ public class Puntos : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name == "Gallina")
+        if (other.CompareTag("Gallina"))
         {
             puntos--;
             textoUI.text = "Dentro de la zona: " + puntos;

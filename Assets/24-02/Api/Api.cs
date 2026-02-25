@@ -1,5 +1,5 @@
-﻿//using Newtonsoft.Json;
-//using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -63,7 +63,7 @@ public class Program : MonoBehaviour
             input = history
         };
 
-        //string json = JsonConvert.SerializeObject(payload);
+        string json = JsonConvert.SerializeObject(payload);
 
         try
         {
@@ -71,7 +71,7 @@ public class Program : MonoBehaviour
                 HttpMethod.Post,
                 "https://api.openai.com/v1/responses");
 
-            //request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await Http.SendAsync(request);
             var responseBody = await response.Content.ReadAsStringAsync();
@@ -84,24 +84,24 @@ public class Program : MonoBehaviour
                 return;
             }
 
-            //var jsonResponse = JObject.Parse(responseBody);
-            //var output = jsonResponse["output"];
+            var jsonResponse = JObject.Parse(responseBody);
+            var output = jsonResponse["output"];
 
             string assistantText = "";
 
-            //foreach (var item in output)
-            //{
-            //    if (item["type"]?.ToString() == "message")
-            //    {
-            //        foreach (var content in item["content"])
-            //        {
-            //            if (content["type"]?.ToString() == "output_text")
-            //            {
-            //                assistantText += content["text"]?.ToString();
-            //            }
-            //        }
-            //    }
-            //}
+            foreach (var item in output)
+            {
+                if (item["type"]?.ToString() == "message")
+                {
+                    foreach (var content in item["content"])
+                    {
+                        if (content["type"]?.ToString() == "output_text")
+                        {
+                            assistantText += content["text"]?.ToString();
+                        }
+                    }
+                }
+            }
 
             // 🔹 Guardamos respuesta en historial
             history.Add(new Dictionary<string, object>

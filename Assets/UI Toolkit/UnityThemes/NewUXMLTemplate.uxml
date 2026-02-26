@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+>
+    <Style src="MenuStyles.uss" />
+
+    <ui:VisualElement name="Container" class="main-container">
+        <ui:VisualElement name="MonasteryDoor" class="menu-panel">
+            <ui:Label text="Menu Principal" name="Title" class="title-label" />
+            
+            <ui:Button text="Inicio" name="BtnInicio" class="menu-button" />
+            <ui:Button text="Ajustes" name="BtnAjustes" class="menu-button" />
+            <ui:Button text="Accesibilidad" name="BtnAccesibilidad" class="menu-button" />
+            <ui:Button text="Salir" name="BtnSalir" class="menu-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+
+</ui:UXML>

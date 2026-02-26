@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Iratxe_USS.uss?fileID=7433441132597879392&amp;guid=e33e9474d5b7a4e43a152088d6bdbb97&amp;type=3#Iratxe_USS" />
+    
+    <ui:VisualElement name="ContainerPrincipal">
+        
+        <ui:VisualElement name="PanelMenu">
+            <ui:Label text="ECOS DE IRATXE" name="TituloJuego" />
+            
+            <ui:VisualElement name="ContenedorBotones">
+                <ui:Button text="JUGAR" name="BtnJugar" />
+                <ui:Button text="AJUSTES" name="BtnAjustes" />
+                <ui:Button text="CREDITOS" name="BtnCreditos" />
+                <ui:Button text="SALIR" name="BtnSalir" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        
+    </ui:VisualElement>
+</ui:UXML>

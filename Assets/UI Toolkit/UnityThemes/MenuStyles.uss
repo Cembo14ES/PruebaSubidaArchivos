@@ -1,0 +1,74 @@
+/* Contenedor principal: Centra todo */
+.main-container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* Panel principal - Puerta de madera del monasterio */
+.menu-panel {
+    width: 600px;
+    padding-top: 55px;
+    padding-bottom: 45px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 12px;
+    background-color: rgb(42, 28, 18);
+    border-top-width: 14px;
+    border-bottom-width: 14px;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-color: rgb(30, 20, 12);
+}
+
+/* Título - Placa de bronce grabada */
+.title-label {
+    font-size: 46px;
+    color: rgb(215, 175, 95);
+    -unity-font-style: bold;
+    -unity-text-align: upper-center;
+    margin-bottom: 40px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 35px;
+    padding-right: 35px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(80, 55, 25);
+    background-color: rgb(70, 50, 30);
+    border-radius: 8px;
+    border-width: 4px;
+    border-color: rgb(140, 105, 55);
+}
+
+/* Botones - Placas de metal remachadas */
+.menu-button {
+    width: 480px;
+    height: 68px;
+    margin-bottom: 18px;
+    border-radius: 8px;
+    background-color: rgb(145, 110, 60);
+    font-size: 26px;
+    color: rgb(35, 22, 12);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 0px;
+    border-width: 4px;
+    border-color: rgb(95, 70, 40);
+    transition-duration: 0.2s;
+}
+
+/* Hover - Metal iluminado por antorcha */
+.menu-button:hover {
+    background-color: rgb(185, 145, 85);
+    border-color: rgb(210, 170, 100);
+    color: rgb(25, 15, 8);
+    scale: 1.03 1.03;
+}
+
+/* Click - Placa presionada */
+.menu-button:active {
+    background-color: rgb(105, 78, 42);
+    border-color: rgb(75, 55, 30);
+    scale: 0.97 0.97;
+}

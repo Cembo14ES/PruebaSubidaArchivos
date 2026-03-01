@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
 }
 
 /* Panel principal - Puerta de madera del monasterio */
@@ -71,4 +72,106 @@
     background-color: rgb(105, 78, 42);
     border-color: rgb(75, 55, 30);
     scale: 0.97 0.97;
+}
+
+/* ========== MENÚS LATERALES ========== */
+
+/* Overlay - Velo oscuro que bloquea el menú principal */
+.overlay-bloqueo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+/* Panel lateral - Pergamino medieval deslizante AL LADO del menú */
+.menu-lateral {
+    width: 450px;
+    height: 650px;
+    background-color: rgb(42, 28, 18);
+    border-top-width: 12px;
+    border-bottom-width: 12px;
+    border-left-width: 8px;
+    border-right-width: 10px;
+    border-color: rgb(30, 20, 12);
+    border-radius: 10px;
+    padding: 35px;
+    margin-left: 30px;
+    display: none;
+}
+
+/* Título del menú lateral */
+.lateral-title {
+    font-size: 32px;
+    color: rgb(215, 175, 95);
+    -unity-font-style: bold;
+    -unity-text-align: upper-left;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom-width: 3px;
+    border-bottom-color: rgb(140, 105, 55);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(80, 55, 25);
+}
+
+/* Botón de volver - Más pequeño y en esquina */
+.boton-volver {
+    width: 140px;
+    height: 50px;
+    margin-top: 20px;
+    border-radius: 6px;
+    background-color: rgb(105, 78, 42);
+    font-size: 20px;
+    color: rgb(215, 175, 95);
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    border-width: 3px;
+    border-color: rgb(75, 55, 30);
+    transition-duration: 0.2s;
+}
+
+.boton-volver:hover {
+    background-color: rgb(145, 110, 60);
+    border-color: rgb(140, 105, 55);
+    scale: 1.05 1.05;
+}
+
+.boton-volver:active {
+    background-color: rgb(75, 55, 30);
+    scale: 0.95 0.95;
+}
+
+/* Contenedor de contenido dentro del menú lateral */
+.lateral-content {
+    flex-grow: 1;
+    margin-top: 15px;
+}
+
+/* ========== ETIQUETAS Y CONTROLES ========== */
+
+/* Etiquetas de opciones dentro de menús laterales */
+.option-label {
+    color: rgb(215, 175, 95);
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+/* Sliders */
+.menu-slider {
+    margin-bottom: 30px;
+}
+
+/* Toggles / Checkboxes */
+.menu-toggle {
+    color: rgb(215, 175, 95);
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+/* Dropdown */
+.menu-dropdown {
+    margin-bottom: 30px;
 }

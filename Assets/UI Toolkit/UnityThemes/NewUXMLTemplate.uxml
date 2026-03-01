@@ -7,14 +7,57 @@
 >
     <Style src="MenuStyles.uss" />
 
+    <!-- Overlay de bloqueo (aparece cuando se abre un menú lateral) -->
+    <ui:VisualElement name="OverlayBloqueo" class="overlay-bloqueo" />
+
     <ui:VisualElement name="Container" class="main-container">
-        <ui:VisualElement name="MonasteryDoor" class="menu-panel">
-            <ui:Label text="Menu Principal" name="Title" class="title-label" />
-            
-            <ui:Button text="Inicio" name="BtnInicio" class="menu-button" />
-            <ui:Button text="Ajustes" name="BtnAjustes" class="menu-button" />
+        <!-- Panel principal del menú -->
+      <ui:VisualElement name="MonasteryDoor" class="menu-panel">
+     <ui:Label text="Menu Principal" name="Title" class="title-label" />
+          
+     <ui:Button text="Inicio" name="BtnInicio" class="menu-button" />
+    <ui:Button text="Ajustes" name="BtnAjustes" class="menu-button" />
             <ui:Button text="Accesibilidad" name="BtnAccesibilidad" class="menu-button" />
             <ui:Button text="Salir" name="BtnSalir" class="menu-button" />
+      </ui:VisualElement>
+
+        <!-- Menú lateral de Ajustes -->
+    <ui:VisualElement name="MenuAjustes" class="menu-lateral">
+       <ui:Label text="Ajustes" class="lateral-title" />
+            
+            <ui:VisualElement class="lateral-content">
+    <!-- Aquí irá el contenido de ajustes -->
+     <ui:Label text="Volumen General" class="option-label" />
+          <ui:Slider name="SliderVolumen" low-value="0" high-value="100" value="80" class="menu-slider" />
+  
+                <ui:Label text="Brillo" class="option-label" />
+         <ui:Slider name="SliderBrillo" low-value="0" high-value="100" value="50" class="menu-slider" />
+    
+  <ui:Label text="Calidad Gráfica" class="option-label" />
+        <ui:DropdownField name="DropdownCalidad" choices="Bajo,Medio,Alto,Ultra" index="2" class="menu-dropdown" />
+    </ui:VisualElement>
+        
+            <ui:Button text="Volver" name="BtnVolverAjustes" class="boton-volver" />
+      </ui:VisualElement>
+
+        <!-- Menú lateral de Accesibilidad -->
+        <ui:VisualElement name="MenuAccesibilidad" class="menu-lateral">
+            <ui:Label text="Accesibilidad" class="lateral-title" />
+            
+        <ui:VisualElement class="lateral-content">
+    <!-- Aquí irá el contenido de accesibilidad -->
+                <ui:Label text="Tamaño de Texto" class="option-label" />
+   <ui:Slider name="SliderTexto" low-value="80" high-value="150" value="100" class="menu-slider" />
+        
+ <ui:Toggle name="ToggleAltoContraste" label="Alto Contraste" class="menu-toggle" />
+                
+ <ui:Toggle name="ToggleSubtitulos" label="Subtítulos Activados" class="menu-toggle" />
+           
+   <ui:Label text="Reducción de Movimiento" class="option-label" />
+  <ui:Slider name="SliderMovimiento" low-value="0" high-value="100" value="0" class="menu-slider" />
+            </ui:VisualElement>
+         
+            <ui:Button text="Volver" name="BtnVolverAccesibilidad" class="boton-volver" />
         </ui:VisualElement>
     </ui:VisualElement>
 

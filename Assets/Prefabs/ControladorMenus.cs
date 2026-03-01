@@ -7,37 +7,72 @@ public class ControladorDeMenus : MonoBehaviour
     public UIDocument documentoUI;
 
     [Header("Control del Jugador")]
-    // Arrastra aquí a tu objeto Jugador (FPSController, PlayerCapsule, etc.)
-    public GameObject jugador;
+    public GameObject jugador; // Arrastra aquí tu XR Origin
 
-    // Nombres de los scripts que mueven a tu personaje (CAMBIALOS si usas otros)
-    // Ejemplos comunes: "FirstPersonController", "PlayerMovement", "LookController"
-    public string[] scriptsDeMovimiento = { "FirstPersonController", "CharacterController", "PlayerInput" };
+    public string[] scriptsDeMovimiento = {
+        "DynamicMoveProvider",
+        "ContinuousMoveProvider",
+        "ActionBasedContinuousMoveProvider",
+        "ContinuousTurnProvider",
+        "ActionBasedContinuousTurnProvider",
+        "SnapTurnProvider",
+        "ActionBasedSnapTurnProvider",
+        "TeleportationProvider"
+    };
 
     private VisualElement root;
     private Button btnInicio;
     private Button btnSalir;
+    private Button btnAjustes;
+    private Button btnAccesibilidad;
+    private VisualElement menuPrincipal;
+    private VisualElement menuAjustes;
+    private VisualElement menuAccesibilidad;
+    private VisualElement overlayBloqueo;
+    private Button btnVolverAjustes;
+    private Button btnVolverAccesibilidad;
 
     void OnEnable()
     {
-        // 1. Configurar UI
         if (documentoUI == null) documentoUI = GetComponent<UIDocument>();
         root = documentoUI.rootVisualElement;
 
         btnInicio = root.Q<Button>("BtnInicio");
         btnSalir = root.Q<Button>("BtnSalir");
+        btnAjustes = root.Q<Button>("BtnAjustes");
+        btnAccesibilidad = root.Q<Button>("BtnAccesibilidad");
+        menuPrincipal = root.Q<VisualElement>("MonasteryDoor");
+        menuAjustes = root.Q<VisualElement>("MenuAjustes");
+        menuAccesibilidad = root.Q<VisualElement>("MenuAccesibilidad");
+        overlayBloqueo = root.Q<VisualElement>("OverlayBloqueo");
+
+        if (menuAjustes != null)
+            btnVolverAjustes = menuAjustes.Q<Button>("BtnVolverAjustes");
+        if (menuAccesibilidad != null)
+            btnVolverAccesibilidad = menuAccesibilidad.Q<Button>("BtnVolverAccesibilidad");
 
         if (btnInicio != null) btnInicio.clicked += IniciarJuego;
         if (btnSalir != null) btnSalir.clicked += SalirDelJuego;
+        if (btnAjustes != null) btnAjustes.clicked += AbrirMenuAjustes;
+        if (btnAccesibilidad != null) btnAccesibilidad.clicked += AbrirMenuAccesibilidad;
+        if (btnVolverAjustes != null) btnVolverAjustes.clicked += CerrarMenusLaterales;
+        if (btnVolverAccesibilidad != null) btnVolverAccesibilidad.clicked += CerrarMenusLaterales;
 
-        // 2. ESTADO INICIAL: Mostrar menú, CONGELAR jugador
+        if (overlayBloqueo != null)
+            overlayBloqueo.RegisterCallback<ClickEvent>(evt => CerrarMenusLaterales());
+
+        CerrarMenusLaterales();
+
+        // Al arrancar, mostramos el menú (y bloqueamos al jugador)
         MostrarMenu(true);
     }
 
     public void IniciarJuego()
     {
-        // Ocultar menú y LIBERAR jugador
+        // Ocultamos el menú (y desbloqueamos al jugador)
         MostrarMenu(false);
+        if (documentoUI != null)
+            documentoUI.gameObject.SetActive(false);
     }
 
     public void SalirDelJuego()
@@ -48,41 +83,70 @@ public class ControladorDeMenus : MonoBehaviour
 #endif
     }
 
-    // --- LA MAGIA: Congelar / Descongelar ---
+    void AbrirMenuAjustes()
+    {
+        CerrarMenusLaterales();
+        if (menuAjustes != null) menuAjustes.style.display = DisplayStyle.Flex;
+        if (overlayBloqueo != null) overlayBloqueo.style.display = DisplayStyle.Flex;
+    }
+
+    void AbrirMenuAccesibilidad()
+    {
+        CerrarMenusLaterales();
+        if (menuAccesibilidad != null) menuAccesibilidad.style.display = DisplayStyle.Flex;
+        if (overlayBloqueo != null) overlayBloqueo.style.display = DisplayStyle.Flex;
+    }
+
+    void CerrarMenusLaterales()
+    {
+        if (menuAjustes != null) menuAjustes.style.display = DisplayStyle.None;
+        if (menuAccesibilidad != null) menuAccesibilidad.style.display = DisplayStyle.None;
+        if (overlayBloqueo != null) overlayBloqueo.style.display = DisplayStyle.None;
+    }
+
     void MostrarMenu(bool mostrar)
     {
-        // A. Mostrar/Ocultar la UI
         root.style.display = mostrar ? DisplayStyle.Flex : DisplayStyle.None;
 
-        // B. Control del Cursor (Importante para PC/Web, en VR es distinto)
         if (mostrar)
         {
-            UnityEngine.Cursor.lockState = CursorLockMode.None; // Cursor libre para clicar
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
             UnityEngine.Cursor.visible = true;
         }
         else
         {
-            UnityEngine.Cursor.lockState = CursorLockMode.Locked; // Cursor atrapado para jugar
+            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             UnityEngine.Cursor.visible = false;
         }
 
-        // C. Desactivar/Activar scripts de movimiento
         if (jugador != null)
         {
-            // Opción 1: Desactivar componentes específicos por nombre
-            foreach (var nombreScript in scriptsDeMovimiento)
+            Debug.Log("[ControladorMenus] === INICIO BUSQUEDA === Menu activo: " + mostrar);
+
+            // Obtenemos TODOS los componentes tipo 'Behaviour' (que pueden ser activados/desactivados) en el jugador y sus hijos
+            Behaviour[] todosLosComponentes = jugador.GetComponentsInChildren<Behaviour>(true);
+
+            foreach (Behaviour comp in todosLosComponentes)
             {
-                // Intentamos buscar el script como Componente (MonoBehaviour)
-                var script = jugador.GetComponent(nombreScript) as MonoBehaviour;
-                if (script != null)
+                string nombreDelComponente = comp.GetType().Name;
+
+                // Comparamos si el nombre de este componente está en tu lista de scripts
+                foreach (string scriptTarget in scriptsDeMovimiento)
                 {
-                    script.enabled = !mostrar; // Si hay menú -> script disabled
+                    if (nombreDelComponente.Contains(scriptTarget))
+                    {
+                        comp.enabled = !mostrar;
+                        Debug.Log($"[ControladorMenus] ENCONTRADO: {nombreDelComponente} en el objeto '{comp.gameObject.name}' -> {(comp.enabled ? "ACTIVADO" : "DESACTIVADO")}");
+                        break; // Pasamos al siguiente componente, ya hemos procesado este
+                    }
                 }
             }
 
-            // Opción 2 (Más bruta): Desactivar el CharacterController si usas uno
-            var cc = jugador.GetComponent<CharacterController>();
-            if (cc != null) cc.enabled = !mostrar;
+            Debug.Log("[ControladorMenus] === FIN BUSQUEDA ===");
+        }
+        else
+        {
+            Debug.LogWarning("[ControladorMenus] No has asignado el GameObject del Jugador en el Inspector.");
         }
     }
 }

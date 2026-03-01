@@ -88,6 +88,8 @@ public class ControladorDeMenus : MonoBehaviour
         CerrarMenusLaterales();
         if (menuAjustes != null) menuAjustes.style.display = DisplayStyle.Flex;
         if (overlayBloqueo != null) overlayBloqueo.style.display = DisplayStyle.Flex;
+        
+        if (btnAjustes != null) btnAjustes.AddToClassList("menu-button-active");
     }
 
     void AbrirMenuAccesibilidad()
@@ -95,6 +97,8 @@ public class ControladorDeMenus : MonoBehaviour
         CerrarMenusLaterales();
         if (menuAccesibilidad != null) menuAccesibilidad.style.display = DisplayStyle.Flex;
         if (overlayBloqueo != null) overlayBloqueo.style.display = DisplayStyle.Flex;
+
+        if (btnAccesibilidad != null) btnAccesibilidad.AddToClassList("menu-button-active");
     }
 
     void CerrarMenusLaterales()
@@ -102,6 +106,10 @@ public class ControladorDeMenus : MonoBehaviour
         if (menuAjustes != null) menuAjustes.style.display = DisplayStyle.None;
         if (menuAccesibilidad != null) menuAccesibilidad.style.display = DisplayStyle.None;
         if (overlayBloqueo != null) overlayBloqueo.style.display = DisplayStyle.None;
+
+        // Quitar la clase de seleccionado a todos los botones
+        if (btnAjustes != null) btnAjustes.RemoveFromClassList("menu-button-active");
+        if (btnAccesibilidad != null) btnAccesibilidad.RemoveFromClassList("menu-button-active");
     }
 
     void MostrarMenu(bool mostrar)

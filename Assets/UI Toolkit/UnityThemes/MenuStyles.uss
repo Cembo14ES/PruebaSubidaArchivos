@@ -74,6 +74,15 @@
     scale: 0.97 0.97;
 }
 
+/* Botón seleccionado (cuando el submenú está abierto) */
+.menu-button-active {
+    background-color: rgb(215, 175, 95);  /* Dorado brillante */
+    border-color: rgb(240, 200, 110);
+    color: rgb(35, 22, 12);
+    border-left-width: 12px;  /* Efecto de marco de puerta para indicar selección */
+    scale: 1.05 1.05;
+}
+
 /* ========== MENÚS LATERALES ========== */
 
 /* Overlay - Velo oscuro que bloquea el menú principal */
@@ -157,21 +166,104 @@
     color: rgb(215, 175, 95);
     margin-bottom: 10px;
     font-size: 20px;
+    -unity-font-style: bold;
 }
 
-/* Sliders */
+/* Sliders - Estilo madera y oro */
 .menu-slider {
     margin-bottom: 30px;
 }
 
-/* Toggles / Checkboxes */
+/* Ocultar la etiqueta integrada del slider para usar la nuestra */
+.menu-slider > Label {
+    display: none;
+}
+
+.menu-slider #unity-tracker {
+    background-color: rgb(25, 15, 8);
+    border-color: rgb(75, 55, 30);
+    border-width: 2px;
+    border-radius: 4px;
+    height: 12px;
+    margin-top: -6px;
+}
+
+.menu-slider #unity-dragger {
+    background-color: rgb(215, 175, 95);
+    border-color: rgb(140, 105, 55);
+    border-width: 2px;
+    border-radius: 8px;
+    width: 24px;
+    height: 24px;
+    margin-top: -12px;
+}
+
+.menu-slider #unity-dragger:hover {
+    background-color: rgb(240, 200, 110);
+    scale: 1.1 1.1;
+}
+
+/* Toggles / Checkboxes - Estilo placa de bronce */
 .menu-toggle {
     color: rgb(215, 175, 95);
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: 20px;
+    -unity-font-style: bold;
 }
 
-/* Dropdown */
+/* La casilla (cuadrado) */
+.menu-toggle #unity-checkmark {
+    background-color: rgb(25, 15, 8);
+    border-color: rgb(140, 105, 55);
+    border-width: 3px;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    margin-right: 15px;
+    padding: 0;
+}
+
+/* Estado activo (marcado) */
+.menu-toggle:checked #unity-checkmark {
+    background-color: rgb(145, 110, 60);
+    /* En Unity, el check por defecto es un SVG blanco. Lo teñimos de marrón oscuro */
+    -unity-background-image-tint-color: rgb(35, 22, 12);
+}
+
+/* Hover en la casilla */
+.menu-toggle:hover #unity-checkmark {
+    border-color: rgb(210, 170, 100);
+    scale: 1.05 1.05;
+}
+
+/* Dropdown - Estilo pergamino enrollado */
 .menu-dropdown {
     margin-bottom: 30px;
+}
+
+.menu-dropdown > Label {
+    display: none;
+}
+
+/* Contenedor visible del dropdown */
+.menu-dropdown .unity-popup-field__input {
+    background-color: rgb(70, 50, 30);
+    border-color: rgb(140, 105, 55);
+    border-width: 3px;
+    border-radius: 6px;
+    color: rgb(215, 175, 95);
+    font-size: 18px;
+    -unity-font-style: bold;
+    padding: 8px 15px;
+    height: 45px;
+}
+
+.menu-dropdown .unity-popup-field__input:hover {
+    background-color: rgb(105, 78, 42);
+    border-color: rgb(185, 145, 85);
+}
+
+/* Flecha del dropdown */
+.menu-dropdown .unity-popup-field__arrow {
+    -unity-background-image-tint-color: rgb(215, 175, 95);
 }
